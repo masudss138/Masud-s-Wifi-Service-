@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Masud's Wifi Service</title>
+  <style>
+    body { font-family: sans-serif; background: #f0f0f0; padding: 20px; }
+    .card { background: white; padding: 20px; max-width: 400px; margin: auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, textarea, button { width: 100%; margin-top: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+    h1, h2 { text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Masud's Wifi Service</h1>
+    <div id="app">
+      <h2>লগইন করুন</h2>
+      <input type="text" id="phone" placeholder="আপনার মোবাইল নম্বর লিখুন" />
+      <button onclick="login()">লগইন</button>
+    </div>
+  </div>
+
+  <script>
+    const users = {
+      "017XXXXXXXX": { name: "রহিম", status: "অপরিশোধিত" },
+      "018XXXXXXXX": { name: "করিম", status: "পরিশোধিত" }
+    };
+
+    function login() {
+      const phone = document.getElementById('phone').value;
+      const user = users[phone];
+      if (user) {
+        document.getElementById('app').innerHTML = `
+          <h2>স্বাগতম, ${user.name}</h2>
+          <p>মাসিক বিল: ৫০০ টাকা</p>
+          <p>অবস্থা: <strong>${user.status}</strong></p>
+          ${user.status === "অপরিশোধিত" ? `
+            <p>বিকাশ নাম্বার: 01XXXXXXXXX</p>
+            <p>QR কোড স্ক্যান করে পেমেন্ট করুন ও নিচে স্ক্রিনশট দিন:</p>
+            <input type="file" />
+            <textarea placeholder="পেমেন্ট নোট (ঐচ্ছিক)"></textarea>
+            <button>পেমেন্ট সাবমিট</button>
+          ` : ''}
+        `;
+      } else {
+        alert("ব্যবহারকারী খুঁজে পাওয়া যায়নি");
+      }
+    }
+  </script>
+</body>
+</html>
